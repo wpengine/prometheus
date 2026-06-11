@@ -224,12 +224,7 @@ replace (
 	github.com/prometheus/common => github.com/prometheus/common v0.61.0
 
 	k8s.io/klog => github.com/simonpasquier/klog-gokit v0.3.0
-	// NOTE(bwplotka): This package effectively limits k8s.io/* modules to v0.32.10,
-	// effectively limiting the prometheus-engine to imports this fork.
-	// This is no longer needed in Prometheus v3.5x, so we keep k8s.io downgraded for now.
-	// Supporting newer means proposing v3.6.0 to github.com/simonpasquier/klog-gokit/v3
-	// with the new klog textlogger package.
-	k8s.io/klog/v2 => github.com/nateinaction/klog-gokit/v3 v3.0.0-20260609190456-f60050f3e750
+	k8s.io/klog/v2 => github.com/wpengine/klog-gokit/v3 v3.0.0-20260611152736-da33c6814c8d
 )
 
 // Exclude linodego v1.0.0 as it is no longer published on github.
