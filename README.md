@@ -38,12 +38,21 @@ by building a consumer, such as `web-environment-operator`, with its `replace` p
 
 ### Direction: move to upstream Prometheus
 
-This fork is a stopgap. Our direction is to use upstream [prometheus/prometheus](https://github.com/prometheus/prometheus),
-the open-source standard, in the autoscale platform, and retire this fork.
+This fork is a stopgap. Our direction is to run our own upstream
+[prometheus/prometheus](https://github.com/prometheus/prometheus), the open-source standard, in the cluster, operate it
+ourselves, and retire this fork.
+
+- A Prometheus workload runs in the cluster, as a pod or StatefulSet. It can be deployed with the Prometheus Operator or
+  the `kube-prometheus-stack` Helm chart, which is the usual way.
+- WEO creates `PodMonitor` or `ServiceMonitor` resources (`monitoring.coreos.com/v1`) instead of GMP's `PodMonitoring`.
+  Those types come from the prometheus-operator project, not Google's `monitoring/v1`.
+- That is what removes the fork. WEO stops importing the GMP package, so nothing needs `google/export` or
+  `google/secrets` any more, and no consumer needs a `replace` on `github.com/prometheus/prometheus`.
+- Whatever reads metrics for autoscaling points at our Prometheus instead of GMP.
 
 Upstream does not contain the `google/export` and `google/secrets` packages that `prometheus-engine`'s `monitoring/v1`
-imports, so the fork can only go away once the consumers no longer depend on that GMP-specific package. Until then,
-keep this fork building against the `client-go` version the consumers use, and do not add new consumers of it.
+imports, so until WEO and its consumers stop importing that package, this fork has to stay. In the meantime, keep it
+building against the `client-go` version the consumers use, and do not add new consumers of it.
 
 ---
 
