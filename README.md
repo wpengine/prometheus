@@ -21,6 +21,21 @@
    (for example `cache.DefaultWatchErrorHandler` gained a `context.Context` argument). This fork carries the
    `client-go` and `klog` fixes needed for it to build, plus our own dependency security updates.
 
+### Repositories that depend on this fork
+
+These repositories currently use this fork through a `replace` on `github.com/prometheus/prometheus`:
+
+- [`fluid-control-plane-operator`](https://github.com/wpengine/fluid-control-plane-operator)
+- [`fluid-integration-tests`](https://github.com/wpengine/fluid-integration-tests)
+- [`fluid-message-handler`](https://github.com/wpengine/fluid-message-handler)
+- [`fluid-wordpress-core`](https://github.com/wpengine/fluid-wordpress-core)
+- [`fluidctl`](https://github.com/wpengine/fluidctl)
+- [`web-environment-operator`](https://github.com/wpengine/web-environment-operator)
+- [`wp-environments`](https://github.com/wpengine/wp-environments)
+
+If you change this repository, please let the sk8rs team know and update the `replace` in each of these repositories
+afterwards, so none of them is left on an outdated commit. Thank you!
+
 ### What differs from Google's `release-2.53.5-gmp`
 
 - `k8s.io/{api,apimachinery,client-go}` updated to v0.36.1 and the call sites in `discovery/kubernetes` fixed.
