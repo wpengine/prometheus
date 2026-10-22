@@ -36,11 +36,14 @@ by building a consumer, such as `web-environment-operator`, with its `replace` p
 2. In each consumer, run `go get github.com/prometheus/prometheus@<sha>` or edit the `replace` line to the new
    pseudo-version (`v0.0.0-<UTC commit timestamp>-<12 character sha>`), then `go mod tidy` and build.
 
-### Removing this fork
+### Direction: move to upstream Prometheus
 
-The fork can be dropped once the consumers no longer need our `client-go` fixes, for example by moving
-`web-environment-operator` to a `prometheus-engine` version that works with Google's own GMP fork directly, or by
-replacing the `PodMonitoring` import with local types.
+This fork is a stopgap. Our direction is to use upstream [prometheus/prometheus](https://github.com/prometheus/prometheus),
+the open-source standard, in the autoscale platform, and retire this fork.
+
+Upstream does not contain the `google/export` and `google/secrets` packages that `prometheus-engine`'s `monitoring/v1`
+imports, so the fork can only go away once the consumers no longer depend on that GMP-specific package. Until then,
+keep this fork building against the `client-go` version the consumers use, and do not add new consumers of it.
 
 ---
 
