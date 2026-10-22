@@ -66,8 +66,7 @@ ourselves, and retire this fork.
 - Whatever reads metrics for autoscaling points at our Prometheus instead of GMP.
 
 Upstream does not contain the `google/export` and `google/secrets` packages that `prometheus-engine`'s `monitoring/v1`
-imports, so until WEO and its consumers stop importing that package, this fork has to stay. In the meantime, keep it
-building against the `client-go` version the consumers use, and do not add new consumers of it.
+imports, so until WEO and its consumers stop importing that package, this fork has to stay.
 
 ---
 
